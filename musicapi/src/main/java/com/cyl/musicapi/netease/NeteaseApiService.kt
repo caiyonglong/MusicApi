@@ -1,18 +1,19 @@
 package com.cyl.musicapi.netease
 
 import io.reactivex.Observable
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.*
 
 /**
  * Created by yonglong on 2017/9/11.
  */
 
 interface NeteaseApiService {
-
     //    @Headers({"referer: http://music.163.com"})
-    @GET("top/playlist/highquality")
-    fun neteasePlaylist(): Observable<NeteasePlaylist>
+    @GET("top/playlist")
+    fun getTopPlaylist(@Query("cat") cat: String? = null, @Query("limit") limit: Int): Observable<NeteasePlaylist>
+
+    @GET("/playlist/detail")
+    fun getPlaylistDetail(@Query("id") id: String): Observable<NeteasePlaylistDetail>
 
     //    @Headers({"referer: http://music.163.com"})
     @GET("/toplist/artist")
@@ -25,12 +26,19 @@ interface NeteaseApiService {
     fun getNewestMv(@Query("limit") limit: Int): Observable<MvInfo>
 
     /**
+     * 搜索
+     */
+//    fun searchNetease(@Url String fullUrl): Observable<SearchInfo>
+    @GET
+    fun searchNetease(@Url url: String): Observable<SearchInfo>
+
+    /**
      * 获取mv排行榜
      */
     @GET("/top/mv")
     fun getTopMv(@Query("offset") offset: Int, @Query("limit") limit: Int): Observable<MvInfo>
 
-    @GET("/mv")
+    @GET("/mv/detail")
     fun getMvDetailInfo(@Query("mvid") mvid: String): Observable<MvDetailInfo>
 
     @GET("simi/mv")
@@ -39,17 +47,24 @@ interface NeteaseApiService {
     @GET("comment/mv")
     fun getMvComment(@Query("id") id: String): Observable<MvComment>
 
-    //    @Headers({"referer: http://music.163.com"})
+    @GET("search/hot")
+    fun getHotSearchInfo(): Observable<SearchInfo>
 
-    //
-//    //    @Headers({"referer: http://music.163.com"})
-//    @GET("music/url?")
-//    fun getMusicUrl(@Query("id") id: String): Observable<NeteaseMusicUrl>
-//
-//    //
-////    //    @Headers({"referer: http://music.163.com"})
-//    @GET("lyric")
-//    fun getMusicLyric(@Query("id") id: String): Observable<NeteaseLyric>
+    @GET("playlist/catlist")
+    fun getCatList(): Observable<CatListBean>
 
+    @GET("banner")
+    fun getBanner(): Observable<BannerResult>
 
+    @GET("login/cellphone")
+    fun loginPhone(@Query("phone") phone: String, @Query("password") password: String): Observable<LoginInfo>
+
+    @GET("login")
+    fun loginEmail(@Query("email") email: String, @Query("password") password: String): Observable<LoginInfo>
+
+    @GET("recommend/songs")
+    fun recommendSongs(): Observable<RecommendSongsInfo>
+
+    @GET("recommend/resource")
+    fun recommendPlaylist(): Observable<RecommendPlaylist>
 }

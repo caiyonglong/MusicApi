@@ -47,7 +47,7 @@ data class ArtistListItem(@SerializedName("country")
                           val artistId: String = "")
 
 
-data class VideoInfo(@SerializedName("total")
+data class VideoInfoData(@SerializedName("total")
                      val total: Int = 0)
 
 
@@ -80,7 +80,7 @@ data class Result(@SerializedName("artist_info")
                   @SerializedName("album_info")
                   val albumInfo: AlbumInfo,
                   @SerializedName("song_info")
-                  val songInfo: SongInfo,
+                  val songInfo: SongInfoRes,
                   @SerializedName("tag_info")
                   val tagInfo: TagInfo,
                   @SerializedName("query")
@@ -90,7 +90,7 @@ data class Result(@SerializedName("artist_info")
                   @SerializedName("rqt_type")
                   val rqtType: Int = 0,
                   @SerializedName("video_info")
-                  val videoInfo: VideoInfo,
+                  val videoInfo: VideoInfoData,
                   @SerializedName("topic_info")
                   val topicInfo: TopicInfo)
 
@@ -105,7 +105,7 @@ data class TagInfo(@SerializedName("total")
                    val total: Int = 0)
 
 
-data class SongInfo(@SerializedName("total")
+data class SongInfoRes(@SerializedName("total")
                     val total: Int = 0,
                     @SerializedName("song_list")
                     val songList: List<SongListItem>?)

@@ -14,8 +14,9 @@
 
 <body>
 <script>
-        dsBridge.registerAsyn("asyn", {
-            tag:"asyn",
+    setTimeout(function() {console.log(window.musicApi)}, 5000)
+    dsBridge.registerAsyn("api", {
+            tag:"api",
             //搜索全部功能
             searchSong: function (keyword,limit,offset, responseCallback) {
                 musicApi.searchSong(keyword,offset).then(function (data) {
@@ -23,20 +24,20 @@
                 })
             },
             //搜索netease功能
-            searchNeteaseSong: function (keyword,limit,offset, responseCallback) {
-                musicApi.netease.searchSong(keyword,offset).then(function (data) {
+            searchNeteaseSong: function (params, responseCallback) {
+                musicApi.netease.searchSong(params).then(function (data) {
                     responseCallback(data)
                 })
             },
             //搜索xiami功能
-            searchXiamiSong: function (keyword,limit,offset, responseCallback) {
-                musicApi.xiami.searchSong(keyword,offset).then(function (data) {
+            searchXiamiSong: function (params, responseCallback) {
+                musicApi.xiami.searchSong(params).then(function (data) {
                     responseCallback(data)
                 })
             },
             //搜索qq
-            searchQQSong: function (keyword,limit,offset, responseCallback) {
-                musicApi.qq.searchSong(keyword,offset).then(function (data) {
+            searchQQSong: function (params, responseCallback) {
+                musicApi.qq.searchSong(params).then(function (data) {
                     responseCallback(data)
                 })
             },
@@ -53,8 +54,8 @@
                 })
             },
             //获取歌曲url
-            getSongUrl: function (vendor,id, responseCallback) {
-                musicApi.getSongUrl(vendor,id).then(function (data) {
+            getSongUrl: function (vendor,id,br, responseCallback) {
+                musicApi.getSongUrl(vendor,id,br).then(function (data) {
                     responseCallback(data)
                 })
             },
@@ -81,21 +82,27 @@
                     responseCallback(data)
                 })
             },
-            getAlbumSongs:function( vendor, id, offset, limit,responseCallback) {
-                musicApi.getAlbumSongs(vendor, id, offset, limit).then(function (data) {
+            getArtists:function(offset, params,responseCallback) {
+                musicApi.qq.getArtists(offset, params).then(function (data) {
+                    responseCallback(data)
+                })
+            },
+            getAlbumSongs:function( vendor, id,responseCallback) {
+                musicApi.getAlbumSongs(vendor, id).then(function (data) {
+                    responseCallback(data)
+                })
+            },
+            getAnyVendorSongDetail:function(arr,responseCallback) {
+                musicApi.getAnyVendorSongDetail(arr).then(function (data) {
+                    responseCallback(data)
+                })
+            },
+            getAlbumDetail:function( vendor, id,responseCallback) {
+                musicApi.getAlbumDetail(vendor, id).then(function (data) {
                     responseCallback(data)
                 })
             }
         })
-
-
-
-
-
-
-
-
-
 
 </script>
 </body>

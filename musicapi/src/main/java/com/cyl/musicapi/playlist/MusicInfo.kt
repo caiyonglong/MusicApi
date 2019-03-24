@@ -20,11 +20,10 @@ data class Album(@SerializedName("id")
                  @SerializedName("cover")
                  val cover: String? = "")
 
-
 data class MusicInfo(@SerializedName("id")
-                     val id: String? = "",
+                     var id: String?,
                      @SerializedName("songId")
-                     val songId: String? = "",
+                     val songId: String? = null,
                      @SerializedName("name")
                      val name: String? = "",
                      @SerializedName("artists")
@@ -32,9 +31,41 @@ data class MusicInfo(@SerializedName("id")
                      @SerializedName("album")
                      val album: Album,
                      @SerializedName("vendor")
-                     val vendor: String? = "",
-                     @SerializedName("commentId")
-                     val commentId: String? = "",
+                     var vendor: String? = "",
+                     @SerializedName("dl")
+                     val dl: Boolean = false,
                      @SerializedName("cp")
-                     val cp: Boolean = false)
+                     val cp: Boolean = false,
+                     @SerializedName("quality")
+                     val quality: QualityBean?)
+
+data class QualityBean(@SerializedName("192")
+                       val high: Boolean = false,
+                       @SerializedName("320")
+                       val hq: Boolean = false,
+                       @SerializedName("999")
+                       val sq: Boolean = false)
+
+data class CollectBatchBean(@SerializedName("ids")
+                            val ids: List<String>? = null,
+                            @SerializedName("vendor")
+                            val vendor: String? = null)
+
+data class CollectBatch2Bean(@SerializedName("collects")
+                             val collects: MutableList<CollectDetail>? = null)
+
+data class CollectDetail(@SerializedName("id")
+                         val id: String,
+                         @SerializedName("vendor")
+                         val vendor: String)
+
+data class CollectResult(@SerializedName("failedList")
+                         val failedList: List<CollectFailed>?)
+
+data class CollectFailed(@SerializedName("id")
+                         val id: String?,
+                         @SerializedName("msg")
+                         val msg: String?)
+
+
 
