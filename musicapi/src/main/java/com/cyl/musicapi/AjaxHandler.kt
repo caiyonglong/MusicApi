@@ -3,10 +3,12 @@ package com.cyl.musicapi
 import android.util.Base64
 import android.util.Log
 import android.widget.Toast
+import com.cyl.musicapi.dsbridge.CompletionHandler
 
 import org.json.JSONObject
 
 import java.io.IOException
+import java.net.CookieManager
 import java.util.HashMap
 import java.util.concurrent.TimeUnit
 
@@ -17,7 +19,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
 import okhttp3.Response
-import wendu.dsbridge.CompletionHandler
+//import wendu.dsbridge.CompletionHandler
 
 
 /**
