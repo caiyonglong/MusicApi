@@ -11,8 +11,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 3
+        versionName "1.0.2"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -27,25 +27,23 @@ android {
 
 }
 ext.retrofit_version = '2.4.0'
-ext.kotlin_version = '1.2.51'
+ext.kotlin_version = '1.3.31'
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.github.wendux:DSBridge-Android:3.0-SNAPSHOT'
-    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+//    implementation 'com.github.wendux:DSBridge-Android:3.0-SNAPSHOT'
+    implementation 'com.squareup.okhttp3:okhttp:3.14.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:27.1.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.google.code.gson:gson:2.8.5'
-//   解析Youtube
-    implementation 'com.squareup.moshi:moshi:1.6.0'
-    implementation 'org.jsoup:jsoup:1.11.3'
-    implementation 'org.mozilla:rhino:1.7.10'
-//    解析Youtube
 
     implementation 'io.reactivex.rxjava2:rxjava:2.2.7'
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+    implementation files('libs/tbs_sdk_thirdapp_v3.6.0.1310_43612_sharewithdownload_withoutGame_obfs_20180706_163319.jar')
+
 }
 
 // build a jar with source files

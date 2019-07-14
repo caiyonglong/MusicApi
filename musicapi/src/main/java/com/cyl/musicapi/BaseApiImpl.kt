@@ -6,13 +6,13 @@ import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.cyl.musicapi.bean.*
+import com.cyl.musicapi.dsbridge.CompletionHandler
+import com.cyl.musicapi.dsbridge.DWebView
 import com.cyl.musicapi.playlist.MusicInfo
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.json.JSONArray
 import org.json.JSONObject
-import wendu.dsbridge.CompletionHandler
-import wendu.dsbridge.DWebView
 import java.util.*
 
 
@@ -30,18 +30,23 @@ object BaseApiImpl {
         initAssets()
         try {
             mWebView = DWebView(context)
-            mWebView?.webViewClient = object : WebViewClient() {
-                override fun shouldOverrideUrlLoading(p0: WebView?, p1: String?): Boolean {
-                    return false
-                }
-            }
             DWebView.setWebContentsDebuggingEnabled(true)
             mWebView?.addJavascriptObject(object : Any() {
+
+                /**
+                 * Note: This method is for Fly.js
+                 * In browser, Ajax requests are sent by browser, but Fly can
+                 * redirect requests to native, more about Fly see  https://github.com/wendux/fly
+                 * @param requestData passed by fly.js, more detail reference https://wendux.github.io/dist/#/doc/flyio-en/native
+                 * @param handler
+                 */
                 @JavascriptInterface
                 fun onAjaxRequest(requestData: Any, handler: CompletionHandler<String>) {
-                    Log.e("TAG", "-----" + requestData.toString())
+                    // Handle ajax request redirected by Fly
+                    Log.d("BaseApiImpl", "onAjaxRequest-----$requestData")
                     AjaxHandler.onAjaxRequest(requestData as JSONObject, handler)
                 }
+
             }, null)
             mWebView?.loadUrl("file:///android_asset/musicApi.html")
         } catch (e: Throwable) {
@@ -81,21 +86,21 @@ object BaseApiImpl {
         Log.e("searchSongSingle", params.toString())
         when (type) {
             "QQ" -> {
-                mWebView?.callHandler("api.searchQQSong", arrayOf(params)) { retValue: JSONObject ->
+                mWebView?.callHandler("api.qq.searchSong", arrayOf(params)) { retValue: JSONObject ->
                     val result = gson.fromJson<SearchSingleData>(retValue.toString(), SearchSingleData::class.java)
                     Log.e("searchQQSong", retValue.toString())
                     success.invoke(result)
                 }
             }
             "XIAMI" -> {
-                mWebView?.callHandler("api.searchXiamiSong", arrayOf(params)) { retValue: JSONObject ->
+                mWebView?.callHandler("api.xiami.searchSong", arrayOf(params)) { retValue: JSONObject ->
                     val result = gson.fromJson<SearchSingleData>(retValue.toString(), SearchSingleData::class.java)
                     Log.e("searchXiamiSong", retValue.toString())
                     success.invoke(result)
                 }
             }
             "NETEASE" -> {
-                mWebView?.callHandler("api.searchNeteaseSong", arrayOf(params)) { retValue: JSONObject ->
+                mWebView?.callHandler("api.netease.searchSong", arrayOf(params)) { retValue: JSONObject ->
                     val result = gson.fromJson<SearchSingleData>(retValue.toString(), SearchSingleData::class.java)
                     Log.e("searchNeteaseSong", retValue.toString())
                     success.invoke(result)
@@ -199,7 +204,7 @@ object BaseApiImpl {
      * id，歌手ID
      */
     fun getArtistSongs(vendor: String, id: String, offset: Int, limit: Int, success: (result: ArtistSongsData) -> Unit, fail: ((String) -> Unit)? = null) {
-        mWebView?.callHandler("api.getArtistSongs", arrayOf<Any>(vendor, id, offset, limit)) { retValue: JSONObject ->
+        mWebView?.callHandler("api.getArtistSongs", arrayOf<Any>(vendor, id)) { retValue: JSONObject ->
             try {
                 val result = gson.fromJson<ArtistSongsData>(retValue.toString(), ArtistSongsData::class.java)
                 success.invoke(result)
@@ -214,7 +219,7 @@ object BaseApiImpl {
      * id，专辑ID
      */
     fun getAlbumSongs(vendor: String, id: String, success: (result: ArtistSongsData) -> Unit, fail: ((String) -> Unit)? = null) {
-        mWebView?.callHandler("api.getAlbumSongs", arrayOf<Any>(vendor, id)) { retValue: JSONObject ->
+        mWebView?.callHandler("api.getPlaylistDetail", arrayOf<Any>(vendor, id)) { retValue: JSONObject ->
             try {
                 val result = gson.fromJson<ArtistSongsData>(retValue.toString(), ArtistSongsData::class.java)
                 success.invoke(result)
@@ -240,12 +245,12 @@ object BaseApiImpl {
     }
 
     /**
-     * 获取歌手详情
-     * id，专辑ID
+     * 获取歌手列表
      */
     fun getArtists(offset: Int, params: Any, success: (result: ArtistsData) -> Unit, fail: ((String) -> Unit)? = null) {
-        mWebView?.callHandler("api.getArtists", arrayOf(offset, params)) { retValue: JSONObject ->
+        mWebView?.callHandler("musicApi.qq.getArtists", arrayOf(offset, params)) { retValue: JSONObject ->
             try {
+                Log.e("BaseApiImpl", "getArtists $retValue")
                 val result = gson.fromJson<ArtistsData>(retValue.toString(), ArtistsData::class.java)
                 success.invoke(result)
             } catch (e: Throwable) {

@@ -1,7 +1,10 @@
 package com.cyl.musicapi.netease
 
 import io.reactivex.Observable
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Query
+import retrofit2.http.QueryMap
+import retrofit2.http.Url
 
 /**
  * Created by yonglong on 2017/9/11.
@@ -11,6 +14,9 @@ interface NeteaseApiService {
     //    @Headers({"referer: http://music.163.com"})
     @GET("top/playlist")
     fun getTopPlaylist(@Query("cat") cat: String? = null, @Query("limit") limit: Int): Observable<NeteasePlaylist>
+
+    @GET("/top/playlist/highquality")
+    fun getTopPlaylistHigh(@QueryMap map: MutableMap<String, Any>): Observable<NeteasePlaylist>
 
     @GET("/playlist/detail")
     fun getPlaylistDetail(@Query("id") id: String): Observable<NeteasePlaylistDetail>
@@ -28,7 +34,6 @@ interface NeteaseApiService {
     /**
      * 搜索
      */
-//    fun searchNetease(@Url String fullUrl): Observable<SearchInfo>
     @GET
     fun searchNetease(@Url url: String): Observable<SearchInfo>
 
@@ -62,9 +67,46 @@ interface NeteaseApiService {
     @GET("login")
     fun loginEmail(@Query("email") email: String, @Query("password") password: String): Observable<LoginInfo>
 
+    /**
+     * 获取登录状态
+     */
+    @GET("/login/status")
+    fun getLoginStatus(): Observable<LoginInfo>
+
+    /**
+     * 获取每日推荐歌曲（需登录）
+     */
     @GET("recommend/songs")
     fun recommendSongs(): Observable<RecommendSongsInfo>
 
+    /**
+     * 获取每日推荐歌单（需登录）
+     */
     @GET("recommend/resource")
     fun recommendPlaylist(): Observable<RecommendPlaylist>
+
+    /**
+     * 获取推荐歌单
+     */
+    @GET("/personalized")
+    fun personalizedPlaylist(): Observable<PersonalizedInfo>
+
+    /**
+     * 获取推荐Mv
+     */
+    @GET("/personalized/mv")
+    fun personalizedMv(): Observable<PersonalizedInfo>
+
+    /**
+     * 获取用户歌单
+     */
+    @GET("/user/playlist")
+    fun getUserPlaylist(@Query("uid") uid: String): Observable<NeteasePlaylist>
+
+    /**
+     * 获取音乐榜单
+     */
+    @GET("/toplist")
+    fun getTopList(): Observable<TopList>
+
 }
