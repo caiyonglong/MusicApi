@@ -58,7 +58,11 @@ object BaseApiImpl {
     /**
      * 搜索
      *
-     * @param query
+     * @param query 搜索文本
+     * @param limit 每页多少歌曲
+     * @param offset 偏移量
+     * @param success 结果返回回调
+     * @param fail 失败返回回调
      */
     fun searchSong(query: String, limit: Int, offset: Int, success: (result: SearchData) -> Unit, fail: ((String?) -> Unit)? = null) {
         mWebView?.callHandler("api.searchSong", arrayOf(query, limit, offset)) { retValue: JSONObject ->
@@ -75,6 +79,11 @@ object BaseApiImpl {
 
     /**
      * 独立请求
+     * @param query 搜索文本
+     * @param type 歌曲类型 [QQ,XIAMI,NETEASE]
+     * @param limit 每页多少歌曲
+     * @param offset 偏移量
+     * @param success 结果返回回调
      */
     fun searchSongSingle(query: String, type: String, limit: Int, offset: Int, success: (result: SearchSingleData) -> Unit) {
         val params = mapOf("keyword" to query, "limit" to limit, "offset" to offset)
@@ -107,6 +116,10 @@ object BaseApiImpl {
 
     /**
      * 获取歌曲详情
+     * @param vendor 歌曲类型 [qq,xiami,netease]
+     * @param id 歌曲Id
+     * @param success 结果返回回调
+     * @param fail 失败返回回调
      */
     fun getSongDetail(vendor: String, id: String, success: (result: SongDetail) -> Unit, fail: (() -> Unit)? = null) {
         mWebView?.callHandler("api.getSongDetail", arrayOf<Any>(vendor, id)) { retValue: JSONObject ->
@@ -121,15 +134,22 @@ object BaseApiImpl {
 
     /**
      * 批量获取歌曲详情
-     * [101126,16435051,139808]
+     *
+     * @param vendor 歌曲类型 [qq,xiami,netease]
+     * @param ids 歌曲Ids [101126,16435051,139808]
+     * @param success 成功回调
      */
-    fun getBatchSongDetail(query: String, ids: Array<String>, success: (result: BatchSongDetail) -> Unit) {
-        mWebView?.callHandler("api.getBatchSongDetail", arrayOf<Any>(query, ids)) { retValue: JSONObject ->
+    fun getBatchSongDetail(vendor: String, ids: Array<String>, success: (result: BatchSongDetail) -> Unit) {
+        mWebView?.callHandler("api.getBatchSongDetail", arrayOf<Any>(vendor, ids)) { retValue: JSONObject ->
             val result = gson.fromJson<BatchSongDetail>(retValue.toString(), BatchSongDetail::class.java)
             success.invoke(result)
         }
     }
 
+
+    /**
+     * 获取服务器网易排行榜列表
+     */
     fun getTopList(id: String, success: (result: NeteaseBean) -> Unit) {
         mWebView?.callHandler("api.getTopList", arrayOf<Any>(id)) { retValue: JSONObject ->
             try {
@@ -141,6 +161,13 @@ object BaseApiImpl {
         }
     }
 
+
+    /**
+     * 获取歌词信息
+     *
+     * @param vendor 歌曲类型 [qq,xiami,netease]
+     * @param success 成功回调
+     */
     fun getLyricInfo(vendor: String, id: String, success: (result: LyricData) -> Unit) {
         mWebView?.callHandler("api.getLyric", arrayOf<Any>(vendor, id)) { retValue: JSONObject ->
             try {
@@ -152,6 +179,13 @@ object BaseApiImpl {
         }
     }
 
+    /**
+     * 获取评论信息
+     *
+     * @param vendor 歌曲类型 [qq,xiami,netease]
+     * @param id 歌曲Id
+     * @param success 成功回调
+     */
     fun getComment(vendor: String, id: String, success: (result: Any) -> Unit, fail: ((String) -> Unit)? = null) {
         mWebView?.callHandler("api.getComment", arrayOf(vendor, id, 1, 50)) { retValue: JSONObject ->
             if (retValue["status"] as Boolean) {
@@ -182,6 +216,11 @@ object BaseApiImpl {
 
     /**
      * 获取播放地址
+     * @param vendor 歌曲类型 [qq,xiami,netease]
+     * @param id 歌曲Id
+     * @param br 音质 默认12800
+     * @param success 成功回调
+     * @param fail 失败回调
      */
     fun getSongUrl(vendor: String, id: String, br: Int = 128000, success: (result: SongBean) -> Unit, fail: (() -> Unit)? = null) {
         mWebView?.callHandler("api.getSongUrl", arrayOf<Any>(vendor, id, br)) { retValue: JSONObject ->
@@ -195,8 +234,13 @@ object BaseApiImpl {
     }
 
     /**
-     * 获取歌手单曲
-     * id，歌手ID
+     * 获取歌手单曲列表
+     * @param vendor 歌曲类型 [qq,xiami,netease]
+     * @param id 歌手ID
+     * @param offset 偏移量
+     * @param limit 每页限制
+     * @param success 成功回调
+     * @param fail 失败回调
      */
     fun getArtistSongs(vendor: String, id: String, offset: Int, limit: Int, success: (result: ArtistSongsData) -> Unit, fail: ((String) -> Unit)? = null) {
         mWebView?.callHandler("api.getArtistSongs", arrayOf<Any>(vendor, id, offset, limit)) { retValue: JSONObject ->
@@ -210,8 +254,11 @@ object BaseApiImpl {
     }
 
     /**
-     * 获取歌单信息
-     * id，专辑ID
+     * 获取专辑歌曲列表
+     * @param vendor 歌曲类型 [qq,xiami,netease]
+     * @param id 专辑ID
+     * @param success 成功回调
+     * @param fail 失败回调
      */
     fun getAlbumSongs(vendor: String, id: String, success: (result: ArtistSongsData) -> Unit, fail: ((String) -> Unit)? = null) {
         mWebView?.callHandler("api.getAlbumSongs", arrayOf<Any>(vendor, id)) { retValue: JSONObject ->
@@ -226,7 +273,10 @@ object BaseApiImpl {
 
     /**
      * 获取专辑详情
-     * id，专辑ID
+     * @param vendor 歌曲类型 [qq,xiami,netease]
+     * @param id 专辑ID
+     * @param success 成功回调
+     * @param fail 失败回调
      */
     fun getAlbumDetail(vendor: String, id: String, success: (result: AlbumData) -> Unit, fail: ((String) -> Unit)? = null) {
         mWebView?.callHandler("api.getAlbumDetail", arrayOf<Any>(vendor, id)) { retValue: JSONObject ->
@@ -240,8 +290,11 @@ object BaseApiImpl {
     }
 
     /**
-     * 获取歌手详情
-     * id，专辑ID
+     * 获取歌手列表详情（qq歌手列表）
+     * @param offset 偏移量
+     * @param params 例：val params = mapOf("area" to area, "sex" to sex, "genre" to genre, "index" to index)
+     * @param success 成功回调
+     * @param fail 失败回调
      */
     fun getArtists(offset: Int, params: Any, success: (result: ArtistsData) -> Unit, fail: ((String) -> Unit)? = null) {
         mWebView?.callHandler("api.getArtists", arrayOf(offset, params)) { retValue: JSONObject ->
@@ -255,8 +308,11 @@ object BaseApiImpl {
     }
 
     /**
-     * 获取歌手详情
+     * 获取任意平台歌手详情
      * id，专辑ID
+     * @param ids 歌手ID列表 map(id,vendor) 歌手id 和 歌曲类型 [qq,xiami,netease]
+     * @param success 成功回调
+     * @param fail 失败回调
      */
     fun getAnyVendorSongDetail(ids: MutableList<Map<String, String?>>, success: (result: MutableList<MusicInfo>) -> Unit, fail: ((String) -> Unit)? = null) {
         mWebView?.callHandler("api.getAnyVendorSongDetail", arrayOf<Any>(ids)) { retValue: JSONArray ->
