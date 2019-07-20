@@ -1,5 +1,10 @@
-//package com.cyl.musicapi.xiami;
+package com.cyl.musicapi.xiami;//package com.cyl.musicapi.xiami;
 //
+//import com.cyl.musiclake.bean.Music;
+//import com.cyl.musiclake.common.Constants;
+//import com.cyl.musiclake.api.net.ApiManager;
+//import com.cyl.musiclake.utils.FileUtils;
+//import com.cyl.musiclake.utils.LogUtil;
 //
 //import java.util.ArrayList;
 //import java.util.HashMap;

@@ -1,4 +1,4 @@
-//package com.cyl.musicapi.qq;
+package com.cyl.musicapi.qq;//package com.cyl.musicapi.qq;
 //
 //import android.util.Base64;
 //

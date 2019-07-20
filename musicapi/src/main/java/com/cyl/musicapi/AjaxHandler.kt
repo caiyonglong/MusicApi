@@ -2,46 +2,38 @@ package com.cyl.musicapi
 
 import android.util.Base64
 import android.util.Log
-import android.widget.Toast
 import com.cyl.musicapi.dsbridge.CompletionHandler
-
+import okhttp3.*
 import org.json.JSONObject
-
 import java.io.IOException
-import java.net.CookieManager
-import java.util.HashMap
+import java.util.*
 import java.util.concurrent.TimeUnit
 
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.MediaType
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody
-import okhttp3.Response
 //import wendu.dsbridge.CompletionHandler
 
 
 /**
  * Created by master on 2018/5/12.
+ * Android 调用JS接口，返回的请求数据
  */
 
 object AjaxHandler {
+    val TAG = "AjaxHandler"
     fun onAjaxRequest(requestData: JSONObject, handler: CompletionHandler<String>) {
-        Log.e("TAG", "-----" + requestData.toString())
-        // Define response structure
+        Log.d(TAG, "onAjaxRequest-----$requestData")
+        // 定义响应数据结构
         val responseData = HashMap<String, Any?>()
         responseData["statusCode"] = 0
 
         try {
+            //获取超时时间
             val timeout = requestData.getInt("timeout")
-            // Create a okhttp instance and set timeout
+            //新建okHttp请求
             val okHttpClient = OkHttpClient.Builder()
                     .connectTimeout(timeout.toLong(), TimeUnit.MILLISECONDS)
                     .build()
 
-            // Determine whether you need to encode the response result.
-            // And encode when responseType is stream.
+            // 判断是否需要加密返回结果，并且当responseType是数据流的时候加密
             var contentType = ""
             var encode = false
             val responseType = requestData.optString("responseType", null)
@@ -53,7 +45,7 @@ object AjaxHandler {
             rb.url(requestData.getString("url"))
             val headers = requestData.getJSONObject("headers")
 
-            // Set request headers
+            // 设置请求头
             val iterator = headers.keys()
             while (iterator.hasNext()) {
                 val key = iterator.next() as String
@@ -69,7 +61,7 @@ object AjaxHandler {
                 rb.header(key, value)
             }
 
-            // Create request body
+            // 新建POST的请求体
             if (requestData.getString("method") == "POST") {
                 var data = ""
                 if (requestData.getString("body") != null) {
@@ -79,38 +71,45 @@ object AjaxHandler {
                         .create(MediaType.parse(contentType), data)
                 rb.post(requestBody)
             }
-            // Create and send HTTP requests
+            // 创建并发送HTTP请求
             val call = okHttpClient.newCall(rb.build())
             val finalEncode = encode
             call.enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
+                    //失败返回
                     responseData["responseText"] = e.message
+                    Log.e(TAG, "onFailure:----$responseData")
                     handler.complete(JSONObject(responseData).toString())
                 }
 
                 @Throws(IOException::class)
                 override fun onResponse(call: Call, response: Response) {
+                    //成功返回
+
+
                     val data: String = if (finalEncode) {
                         Base64.encodeToString(response.body()!!.bytes(), Base64.DEFAULT)
                     } else {
                         response.body()!!.string()
                     }
-                    // If encoding is needed, the result is encoded by Base64 and returned
-                    Log.e("TAG", "-----$data")
+                    Log.d(TAG, "onResponse:----$responseData")
+
+                    //如果需要编码，结果将由Base64编码并返回 If encoding is needed, the result is encoded by Base64 and returned
+                    Log.e("TAG", "onResponse:-----$data")
                     responseData["responseText"] = data
                     responseData["statusCode"] = response.code()
                     responseData["statusMessage"] = response.message()
                     val responseHeaders = response.headers().toMultimap()
                     responseData["headers"] = responseHeaders
 
-                    Log.e("TAG", "-----$responseData")
+                    Log.d(TAG, "onResponse:-----$responseData")
                     handler.complete(JSONObject(responseData).toString())
                 }
             })
 
         } catch (e: Exception) {
-            Log.e("TAG", "-----" + e.message)
-            responseData["responseText"] = e.message
+            Log.e("TAG", "抛出异常-----" + e.message)
+            responseData["responseText"] = "音乐接口异常,${e.message}"
             handler.complete(JSONObject(responseData).toString())
         }
 
