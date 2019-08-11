@@ -16,7 +16,7 @@ data class Account(@SerializedName("salt")
                    @SerializedName("anonimousUser")
                    val anonimousUser: Boolean = false,
                    @SerializedName("createTime")
-                   val createTime: Int = 0,
+                   val createTime: Long = 0,
                    @SerializedName("tokenVersion")
                    val tokenVersion: Int = 0,
                    @SerializedName("id")
@@ -46,7 +46,7 @@ data class LoginInfo(@SerializedName("clientId")
                      @SerializedName("bindings")
                      val bindings: MutableList<BindingsItem>?,
                      @SerializedName("effectTime")
-                     val effectTime: Int = 0,
+                     val effectTime: Long = 0,
                      @SerializedName("account")
                      val account: Account)
 
@@ -58,7 +58,7 @@ data class BindingsItem(@SerializedName("expiresIn")
                         @SerializedName("tokenJsonStr")
                         val tokenJsonStr: String = "",
                         @SerializedName("refreshTime")
-                        val refreshTime: Int = 0,
+                        val refreshTime: Long = 0,
                         @SerializedName("id")
                         val id: Long = 0,
                         @SerializedName("type")

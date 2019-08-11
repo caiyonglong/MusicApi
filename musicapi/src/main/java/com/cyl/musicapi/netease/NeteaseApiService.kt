@@ -5,6 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.http.QueryMap
 import retrofit2.http.Url
+import java.util.*
 
 /**
  * Created by yonglong on 2017/9/11.
@@ -66,6 +67,12 @@ interface NeteaseApiService {
 
     @GET("login")
     fun loginEmail(@Query("email") email: String, @Query("password") password: String): Observable<LoginInfo>
+
+    /**
+     * 注销登录
+     */
+    @GET("logout")
+    fun logout(): Observable<Any>
 
     /**
      * 获取登录状态
