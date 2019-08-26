@@ -113,7 +113,6 @@ interface NeteaseApiService {
     /**
      * 获取音乐榜单
      */
-    @GET("/toplist")
+    @GET("/toplist/detail")
     fun getTopList(): Observable<TopList>
-
 }

@@ -130,6 +130,11 @@ data class NeteasePlaylist(@SerializedName("lasttime")
                            @SerializedName("playlist")
                            val playlist: MutableList<PlaylistsItem>?)
 
+data class TopListDetail(@SerializedName("code")
+                         val code: Int = 0,
+                         @SerializedName("list")
+                         val list: MutableList<PlaylistsItem>?)
+
 
 data class NeteasePlaylistDetail(
         @SerializedName("code")
@@ -169,7 +174,7 @@ data class PlaylistsItem(
         @SerializedName("ordered")
         val ordered: Boolean,
         @SerializedName("playCount")
-        val playCount: Int,
+        val playCount: Long,
         @SerializedName("privacy")
         val privacy: Int,
         @SerializedName("shareCount")
@@ -187,7 +192,7 @@ data class PlaylistsItem(
         @SerializedName("tags")
         val tags: MutableList<String>,
         @SerializedName("trackCount")
-        val trackCount: Int,
+        val trackCount: Long,
         @SerializedName("trackIds")
         val trackIds: MutableList<TrackId>,
         @SerializedName("trackNumberUpdateTime")
@@ -201,78 +206,83 @@ data class PlaylistsItem(
         @SerializedName("updateFrequency")
         val updateFrequency: String?,
         @SerializedName("userId")
-        val userId: Int
+        val userId: Int,
+        @SerializedName("ToplistType")
+        val ToplistType: String?
 )
 
-data class TracksItem(
-        @SerializedName("a")
-        val a: Any,
-        @SerializedName("al")
-        val al: Al,
-        @SerializedName("alia")
-        val alia: MutableList<Any>,
-        @SerializedName("ar")
-        val ar: MutableList<Ar>,
-        @SerializedName("cd")
-        val cd: String,
-        @SerializedName("cf")
-        val cf: String,
-        @SerializedName("copyright")
-        val copyright: Int,
-        @SerializedName("cp")
-        val cp: Int,
-        @SerializedName("crbt")
-        val crbt: Any,
-        @SerializedName("djId")
-        val djId: Int,
-        @SerializedName("dt")
-        val dt: Int,
-        @SerializedName("fee")
-        val fee: Int,
-        @SerializedName("ftype")
-        val ftype: Int,
-        @SerializedName("h")
-        val h: H,
-        @SerializedName("id")
-        val id: Int,
-        @SerializedName("l")
-        val l: L,
-        @SerializedName("m")
-        val m: M,
-        @SerializedName("mst")
-        val mst: Int,
-        @SerializedName("mv")
-        val mv: Int,
-        @SerializedName("name")
-        val name: String,
-        @SerializedName("no")
-        val no: Int,
-        @SerializedName("pop")
-        val pop: Int,
-        @SerializedName("pst")
-        val pst: Int,
-        @SerializedName("publishTime")
-        val publishTime: Long,
-        @SerializedName("rt")
-        val rt: Any,
-        @SerializedName("rtUrl")
-        val rtUrl: Any,
-        @SerializedName("rtUrls")
-        val rtUrls: MutableList<Any>,
-        @SerializedName("rtype")
-        val rtype: Int,
-        @SerializedName("rurl")
-        val rurl: Any,
-        @SerializedName("s_id")
-        val sId: Int,
-        @SerializedName("st")
-        val st: Int,
-        @SerializedName("t")
-        val t: Int,
-        @SerializedName("tns")
-        val tns: MutableList<String>,
-        @SerializedName("v")
-        val v: Int
+data class TracksItem(@SerializedName("first")
+                      val first: String = "",
+                      @SerializedName("second")
+                      val second: String = "",
+                      @SerializedName("a")
+                      val a: Any?,
+                      @SerializedName("al")
+                      val al: Al?,
+                      @SerializedName("alia")
+                      val alia: MutableList<Any>?,
+                      @SerializedName("ar")
+                      val ar: MutableList<Ar>?,
+                      @SerializedName("cd")
+                      val cd: String?,
+                      @SerializedName("cf")
+                      val cf: String?,
+                      @SerializedName("copyright")
+                      val copyright: Int?,
+                      @SerializedName("cp")
+                      val cp: Int?,
+                      @SerializedName("crbt")
+                      val crbt: Any?,
+                      @SerializedName("djId")
+                      val djId: Int?,
+                      @SerializedName("dt")
+                      val dt: Int?,
+                      @SerializedName("fee")
+                      val fee: Int?,
+                      @SerializedName("ftype")
+                      val ftype: Int?,
+                      @SerializedName("h")
+                      val h: H?,
+                      @SerializedName("id")
+                      val id: Int?,
+                      @SerializedName("l")
+                      val l: L?,
+                      @SerializedName("m")
+                      val m: M?,
+                      @SerializedName("mst")
+                      val mst: Int?,
+                      @SerializedName("mv")
+                      val mv: Int?,
+                      @SerializedName("name")
+                      val name: String?,
+                      @SerializedName("no")
+                      val no: Int?,
+                      @SerializedName("pop")
+                      val pop: Int?,
+                      @SerializedName("pst")
+                      val pst: Int?,
+                      @SerializedName("publishTime")
+                      val publishTime: Long?,
+                      @SerializedName("rt")
+                      val rt: Any?,
+                      @SerializedName("rtUrl")
+                      val rtUrl: Any?,
+                      @SerializedName("rtUrls")
+                      val rtUrls: MutableList<Any>?,
+                      @SerializedName("rtype")
+                      val rtype: Int?,
+                      @SerializedName("rurl")
+                      val rurl: Any?,
+                      @SerializedName("s_id")
+                      val sId: Int?,
+                      @SerializedName("st")
+                      val st: Int?,
+                      @SerializedName("t")
+                      val t: Int?,
+                      @SerializedName("tns")
+                      val tns: MutableList<String>?,
+                      @SerializedName("v")
+                      val v: Int?
 )
 
 data class L(
