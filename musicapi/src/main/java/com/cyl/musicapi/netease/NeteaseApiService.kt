@@ -115,4 +115,9 @@ interface NeteaseApiService {
      */
     @GET("/toplist/detail")
     fun getTopList(): Observable<TopList>
+    /**
+     * 获取私人FM
+     */
+    @GET("/personal_fm")
+    fun getPersonlFM(): Observable<PersonalFM>
 }
