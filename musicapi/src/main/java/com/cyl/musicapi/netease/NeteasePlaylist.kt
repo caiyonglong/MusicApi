@@ -403,7 +403,7 @@ data class Subscriber(
         @SerializedName("signature")
         val signature: String,
         @SerializedName("userId")
-        val userId: Int,
+        val userId: Long,
         @SerializedName("userType")
         val userType: Int,
         @SerializedName("vipType")

@@ -89,7 +89,7 @@ data class XiamiComment(@SerializedName("author")
 data class NeteaseComment(@SerializedName("beReplied")
                           val beReplied: List<BeRepliedItem>?,
                           @SerializedName("commentId")
-                          val commentId: Int = 0,
+                          val commentId: Long = 0,
                           @SerializedName("time")
                           val time: Long = 0,
                           @SerializedName("user")
