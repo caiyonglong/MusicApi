@@ -99,7 +99,7 @@ data class ArtistsItem(@SerializedName("picUrl")
                        @SerializedName("img1v1Id")
                        val imgVId: Int = 0,
                        @SerializedName("id")
-                       val id: String,
+                       val id: Long,
                        @SerializedName("picId")
                        val picId: Int = 0,
                        @SerializedName("albumSize")

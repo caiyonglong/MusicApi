@@ -20,7 +20,7 @@ data class User(@SerializedName("locationInfo")
                 @SerializedName("userType")
                 val userType: Int = 0,
                 @SerializedName("userId")
-                val userId: Int = 0,
+                val userId: String = "",
                 @SerializedName("experts")
                 val experts: Any? = null)
 
@@ -46,7 +46,7 @@ data class MvComment(@SerializedName("total")
 data class CommentsItemInfo(@SerializedName("isRemoveHotComment")
                             val isRemoveHotComment: Boolean = false,
                             @SerializedName("commentId")
-                            val commentId: Int = 0,
+                            val commentId: Long = 0,
                             @SerializedName("likedCount")
                             val likedCount: Int = 0,
                             @SerializedName("time")

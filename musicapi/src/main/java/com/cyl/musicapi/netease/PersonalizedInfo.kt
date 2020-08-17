@@ -53,14 +53,14 @@ data class PersonalizedItem(@SerializedName("id")
                             @SerializedName("canDislike")
                             val canDislike: Boolean = false,
                             @SerializedName("playCount")
-                            val playCount: Float = 0f,
+                            val playCount: Long = 0,
                             @SerializedName("trackCount")
                             val trackCount: Int = 0,
                             @SerializedName("highQuality")
                             val highQuality: Boolean = false,
 
                             @SerializedName("duration")
-                            val duration: Int = 0,
+                            val duration: Long = 0,
                             @SerializedName("subed")
                             val subed: Boolean = false,
                             @SerializedName("artists")

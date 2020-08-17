@@ -1,16 +1,16 @@
 package com.cyl.musicapi.netease
 
+import com.cyl.musicapi.netease.base.NeteaseBaseData
+import com.cyl.musicapi.netease.base.NeteaseVideoBaseData
+import com.cyl.musicapi.netease.video.*
+import com.cyl.musicapi.netease.video.Creator
+import com.cyl.musicapi.netease.video.VideoGroup
 import io.reactivex.Observable
-import retrofit2.http.GET
-import retrofit2.http.Query
-import retrofit2.http.QueryMap
-import retrofit2.http.Url
-import java.util.*
+import retrofit2.http.*
 
 /**
  * Created by yonglong on 2017/9/11.
  */
-
 interface NeteaseApiService {
     //    @Headers({"referer: http://music.163.com"})
     @GET("top/playlist")
@@ -50,8 +50,8 @@ interface NeteaseApiService {
     @GET("simi/mv")
     fun getSimilarMv(@Query("mvid") mvid: String): Observable<SimilarMvInfo>
 
-    @GET("comment/mv")
-    fun getMvComment(@Query("id") id: String): Observable<MvComment>
+    @GET("comment/{type}")
+    fun getMvComment(@Path("type") type: String, @Query("id") id: String, @Query("offset") offset: Int = 0): Observable<MvComment>
 
     @GET("search/hot")
     fun getHotSearchInfo(): Observable<SearchInfo>
@@ -115,9 +115,46 @@ interface NeteaseApiService {
      */
     @GET("/toplist/detail")
     fun getTopList(): Observable<TopList>
+
     /**
      * 获取私人FM
      */
     @GET("/personal_fm")
-    fun getPersonlFM(): Observable<PersonalFM>
+    fun getPersonalFM(): Observable<PersonalFM>
+
+    /**
+     * 获取视频分类列表
+     */
+    @GET("/video/category/list")
+    fun getVideoGroupList(): Observable<NeteaseBaseData<MutableList<VideoGroup>>>
+
+    /**
+     * 获取视频分类列表
+     */
+    @GET("/video/group")
+    fun getVideoList(@Query("id") id: String, @Query("offset") offset: Int = 0): Observable<NeteaseVideoBaseData<NeteaseVideoData>>
+
+    /**
+     * 获取视频详情
+     */
+    @GET("/video/detail")
+    fun getVideoDetailInfo(@Query("id") id: String): Observable<NeteaseBaseData<NeteaseVideoBean<Creator>>>
+
+    /**
+     * 获取相关视频列表
+     */
+    @GET("/related/allvideo")
+    fun getRelatedVideoList(@Query("id") id: String): Observable<NeteaseBaseData<MutableList<NeteaseVideoBean<MutableList<VideoCreator>>>>>
+
+    /**
+     * 获取视频播放地址
+     */
+    @GET("/video/url")
+    fun getVideoUrlInfo(@Query("id") id: String): Observable<VideoUrlInfo>
+
+    /**
+     * 获取MV播放地址
+     */
+    @GET("/mv/url")
+    fun getMvUrlInfo(@Query("id") id: String): Observable<VideoUrlInfo>
 }

@@ -20,9 +20,9 @@ data class MvInfoDetail(@SerializedName("lastRank")
                         @SerializedName("cover")
                         val cover: String = "",
                         @SerializedName("duration")
-                        val duration: Int = 0,
+                        val duration: Long = 0,
                         @SerializedName("playCount")
-                        val playCount: Int = 0,
+                        val playCount: Long = 0,
                         @SerializedName("score")
                         val score: Int = 0,
                         @SerializedName("subed")
@@ -36,17 +36,11 @@ data class MvInfoDetail(@SerializedName("lastRank")
                         @SerializedName("artistName")
                         val artistName: String = "",
                         @SerializedName("id")
-                        val id: Int = 0,
+                        val id: String = "",
                         @SerializedName("mark")
                         val mark: Int = 0,
                         @SerializedName("desc")
                         val desc: String = "")
-
-//
-//data class ArtistsItem(@SerializedName("name")
-//                       val name: String = "",
-//                       @SerializedName("id")
-//                       val id: Int = 0)
 
 
 data class MvDetailInfo(@SerializedName("code")
@@ -60,54 +54,76 @@ data class SimilarMvInfo(@SerializedName("code")
                          @SerializedName("mvs")
                          val data: MutableList<MvInfoDetail>?)
 
+data class MvInfoDetailInfo(
+        @SerializedName("artistId")
+        var artistId: Int,
+        @SerializedName("artistName")
+        var artistName: String,
+        @SerializedName("artists")
+        var artists: MutableList<MvArtist>,
+        @SerializedName("briefDesc")
+        var briefDesc: String,
+        @SerializedName("brs")
+        var brs: MutableList<Br>,
+        @SerializedName("commentCount")
+        var commentCount: Long,
+        @SerializedName("commentThreadId")
+        var commentThreadId: String,
+        @SerializedName("cover")
+        var cover: String,
+        @SerializedName("coverId")
+        var coverId: Long,
+        @SerializedName("coverId_str")
+        var coverIdStr: String,
+        @SerializedName("desc")
+        var desc: String?,
+        @SerializedName("duration")
+        var duration: Long,
+        @SerializedName("id")
+        var id: Int,
+        @SerializedName("nType")
+        var nType: Int,
+        @SerializedName("name")
+        var name: String,
+        @SerializedName("playCount")
+        var playCount: Long,
+        @SerializedName("price")
+        var price: Any,
+        @SerializedName("publishTime")
+        var publishTime: String,
+        @SerializedName("shareCount")
+        var shareCount: Long,
+        @SerializedName("subCount")
+        var subCount: Long,
+        @SerializedName("videoGroup")
+        var videoGroup: MutableList<VideoGroup>
+)
 
-data class MvUrlInfo(@SerializedName("240")
-                     val p240: String?,
-                     @SerializedName("480")
-                     val p480: String?,
-                     @SerializedName("720")
-                     val p720: String?,
-                     @SerializedName("1080")
-                     val p1080: String?)
+data class MvArtist(
+        @SerializedName("followed")
+        var followed: Boolean,
+        @SerializedName("id")
+        var id: Int,
+        @SerializedName("img1v1Url")
+        var img1v1Url: String,
+        @SerializedName("name")
+        var name: String
+)
 
-data class MvInfoDetailInfo(@SerializedName("publishTime")
-                            val publishTime: String = "",
-                            @SerializedName("brs")
-                            val brs: MvUrlInfo,
-                            @SerializedName("isReward")
-                            val isReward: Boolean = false,
-                            @SerializedName("commentThreadId")
-                            val commentThreadId: String = "",
-                            @SerializedName("artistId")
-                            val artistId: Int = 0,
-                            @SerializedName("likeCount")
-                            val likeCount: Int = 0,
-                            @SerializedName("commentCount")
-                            val commentCount: Int = 0,
-                            @SerializedName("cover")
-                            val cover: String = "",
-                            @SerializedName("subCount")
-                            val subCount: Int = 0,
-                            @SerializedName("duration")
-                            val duration: Int = 0,
-                            @SerializedName("playCount")
-                            val playCount: Int = 0,
-                            @SerializedName("shareCount")
-                            val shareCount: Int = 0,
-                            @SerializedName("coverId")
-                            val coverId: Long = 0,
-                            @SerializedName("briefDesc")
-                            val briefDesc: String = "",
-                            @SerializedName("artists")
-                            val artists: MutableList<ArtistsItem>?,
-                            @SerializedName("name")
-                            val name: String = "",
-                            @SerializedName("artistName")
-                            val artistName: String = "",
-                            @SerializedName("id")
-                            val id: Int = 0,
-                            @SerializedName("nType")
-                            val nType: Int = 0,
-                            @SerializedName("desc")
-                            val desc: String = "")
+data class Br(
+        @SerializedName("br")
+        var br: Long,
+        @SerializedName("point")
+        var point: Int,
+        @SerializedName("size")
+        var size: Int
+)
 
+data class VideoGroup(
+        @SerializedName("id")
+        var id: Int,
+        @SerializedName("name")
+        var name: String,
+        @SerializedName("type")
+        var type: Int
+)
