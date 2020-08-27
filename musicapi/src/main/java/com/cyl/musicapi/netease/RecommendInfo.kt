@@ -6,12 +6,16 @@ import com.google.gson.annotations.SerializedName
  * Created by cyl on 2018/11/6.
  */
 
-data class RecommendSongsInfo(@SerializedName("code")
-                              val code: Int = 0,
-                              @SerializedName("msg")
-                              val msg: String = "",
-                              @SerializedName("recommend")
-                              val recommend: MutableList<RecommendItem>?)
+data class RecommendSongsInfo(
+        @SerializedName("dailySongs")
+        val dailySongs: MutableList<TracksItem>?,
+        @SerializedName("recommendReasons")
+        val recommendReasons: MutableList<Reason>?)
+
+data class Reason(@SerializedName("reason")
+                  val reason: String,
+                  @SerializedName("songId")
+                  val songId: String)
 
 data class RecommendPlaylist(@SerializedName("recommend")
                              val recommend: MutableList<PlaylistsItem>?,
@@ -106,70 +110,6 @@ data class ArtistsItem(@SerializedName("picUrl")
                        val albumSize: Int = 0,
                        @SerializedName("trans")
                        val trans: String = "")
-
-
-data class RecommendItem(@SerializedName("no")
-                         val no: Int = 0,
-                         @SerializedName("reason")
-                         val reason: String = "",
-                         @SerializedName("copyright")
-                         val copyright: Int = 0,
-                         @SerializedName("dayPlays")
-                         val dayPlays: Int = 0,
-                         @SerializedName("fee")
-                         val fee: Int = 0,
-                         @SerializedName("privilege")
-                         val privilege: Privilege,
-                         @SerializedName("mMusic")
-                         val mMusic: MMusic,
-                         @SerializedName("bMusic")
-                         val bMusic: BMusic,
-                         @SerializedName("duration")
-                         val duration: Int = 0,
-                         @SerializedName("score")
-                         val score: Int = 0,
-                         @SerializedName("rtype")
-                         val rtype: Int = 0,
-                         @SerializedName("starred")
-                         val starred: Boolean = false,
-                         @SerializedName("artists")
-                         val artists: MutableList<ArtistsItem>?,
-                         @SerializedName("popularity")
-                         val popularity: Int = 0,
-                         @SerializedName("playedNum")
-                         val playedNum: Int = 0,
-                         @SerializedName("hearTime")
-                         val hearTime: Int = 0,
-                         @SerializedName("starredNum")
-                         val starredNum: Int = 0,
-                         @SerializedName("id")
-                         val id: String,
-                         @SerializedName("alg")
-                         val alg: String = "",
-                         @SerializedName("album")
-                         val album: Album,
-                         @SerializedName("lMusic")
-                         val lMusic: LMusic,
-                         @SerializedName("commentThreadId")
-                         val commentThreadId: String = "",
-                         @SerializedName("copyFrom")
-                         val copyFrom: String = "",
-                         @SerializedName("ftype")
-                         val ftype: Int = 0,
-                         @SerializedName("copyrightId")
-                         val copyrightId: Int = 0,
-                         @SerializedName("hMusic")
-                         val hMusic: HMusic,
-                         @SerializedName("mvid")
-                         val mvid: Int = 0,
-                         @SerializedName("name")
-                         val name: String = "",
-                         @SerializedName("disc")
-                         val disc: String = "",
-                         @SerializedName("position")
-                         val position: Int = 0,
-                         @SerializedName("status")
-                         val status: Int = 0)
 
 
 data class Album(@SerializedName("transName")

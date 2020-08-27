@@ -230,7 +230,7 @@ data class TracksItem(@SerializedName("first")
                       @SerializedName("copyright")
                       val copyright: Int?,
                       @SerializedName("cp")
-                      val cp: Int?,
+                      val cp: String?,
                       @SerializedName("crbt")
                       val crbt: Any?,
                       @SerializedName("djId")
@@ -244,7 +244,7 @@ data class TracksItem(@SerializedName("first")
                       @SerializedName("h")
                       val h: H?,
                       @SerializedName("id")
-                      val id: Int?,
+                      val id: String?,
                       @SerializedName("l")
                       val l: L?,
                       @SerializedName("m")
@@ -252,7 +252,7 @@ data class TracksItem(@SerializedName("first")
                       @SerializedName("mst")
                       val mst: Int?,
                       @SerializedName("mv")
-                      val mv: Int?,
+                      val mv: String?,
                       @SerializedName("name")
                       val name: String?,
                       @SerializedName("no")
@@ -311,7 +311,7 @@ data class Ar(
         @SerializedName("alias")
         val alias: MutableList<String>,
         @SerializedName("id")
-        val id: Int,
+        val id: String,
         @SerializedName("name")
         val name: String,
         @SerializedName("tns")
@@ -331,7 +331,7 @@ data class H(
 
 data class Al(
         @SerializedName("id")
-        val id: Int,
+        val id: String,
         @SerializedName("name")
         val name: String,
         @SerializedName("pic")
@@ -346,7 +346,7 @@ data class Al(
 
 data class TrackId(
         @SerializedName("id")
-        val id: Int,
+        val id: String,
         @SerializedName("v")
         val v: Int
 )

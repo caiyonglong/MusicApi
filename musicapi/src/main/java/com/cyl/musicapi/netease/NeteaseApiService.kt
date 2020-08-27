@@ -84,7 +84,7 @@ interface NeteaseApiService {
      * 获取每日推荐歌曲（需登录）
      */
     @GET("recommend/songs")
-    fun recommendSongs(): Observable<RecommendSongsInfo>
+    fun recommendSongs(): Observable<NeteaseBaseData<RecommendSongsInfo>>
 
     /**
      * 获取每日推荐歌单（需登录）
