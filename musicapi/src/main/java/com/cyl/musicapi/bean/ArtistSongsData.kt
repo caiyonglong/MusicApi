@@ -4,13 +4,6 @@ package com.cyl.musicapi.bean
 import com.cyl.musicapi.playlist.MusicInfo
 import com.google.gson.annotations.SerializedName
 
-data class ArtistSongsData(@SerializedName("data")
-                           val data: ArtistSongs,
-                           @SerializedName("status")
-                           val status: Boolean = false,
-                           @SerializedName("msg")
-                           val msg: String = "")
-
 data class AlbumData(@SerializedName("data")
                      val data: AlbumBean,
                      @SerializedName("status")

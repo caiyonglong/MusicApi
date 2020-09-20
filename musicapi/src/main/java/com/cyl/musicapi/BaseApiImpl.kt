@@ -153,17 +153,41 @@ object BaseApiImpl {
     /**
      * 获取服务器网易排行榜列表
      */
-    fun getTopList(id: String, success: (result: NeteaseBean) -> Unit) {
+    fun getTopList(id: String, success: (result: TopListBean) -> Unit, fail: ((String) -> Unit)?) {
         mWebView?.callHandler("api.getTopList", arrayOf<Any>(id)) { retValue: JSONObject ->
             try {
-                val result = gson.fromJson<NeteaseBean>(retValue.toString(), NeteaseBean::class.java)
-                success.invoke(result)
+                val listType = object : TypeToken<BaseApiBean<TopListBean>>() {}.type
+                val result = gson.fromJson<BaseApiBean<TopListBean>>(retValue.toString(), listType)
+                if (result.status) {
+                    success.invoke(result.data)
+                } else {
+                    fail?.invoke(result.msg)
+                }
             } catch (e: Throwable) {
                 Log.e("getTopList", e.message)
             }
         }
     }
 
+    /**
+     * 获取QQ排行榜列表
+     */
+    fun getQQTopList(id: String, success: (result: TopListBean) -> Unit, fail: ((String) -> Unit)?) {
+        mWebView?.callHandler("api.qq.getTopList", arrayOf<Any>(id)) { retValue: JSONObject ->
+            try {
+                val listType = object : TypeToken<BaseApiBean<TopListBean>>() {}.type
+                val result = gson.fromJson<BaseApiBean<TopListBean>>(retValue.toString(), listType)
+                if (result.status) {
+                    success.invoke(result.data)
+                } else {
+                    fail?.invoke(result.msg)
+                }
+            } catch (e: Throwable) {
+                fail?.invoke("数据异常")
+                Log.e("getTopList", e.message)
+            }
+        }
+    }
 
     /**
      * 获取歌词信息
@@ -245,11 +269,16 @@ object BaseApiImpl {
      * @param success 成功回调
      * @param fail 失败回调
      */
-    fun getArtistSongs(vendor: String, id: String, offset: Int, limit: Int, success: (result: ArtistSongsData) -> Unit, fail: ((String) -> Unit)? = null) {
+    fun getArtistSongs(vendor: String, id: String, offset: Int, limit: Int, success: (result: ArtistSongs) -> Unit, fail: ((String) -> Unit)? = null) {
         mWebView?.callHandler("api.getArtistSongs", arrayOf<Any>(vendor, id)) { retValue: JSONObject ->
             try {
-                val result = gson.fromJson<ArtistSongsData>(retValue.toString(), ArtistSongsData::class.java)
-                success.invoke(result)
+                val listType = object : TypeToken<BaseApiBean<ArtistSongs>>() {}.type
+                val result = gson.fromJson<BaseApiBean<ArtistSongs>>(retValue.toString(), listType)
+                if (result.status) {
+                    success.invoke(result.data)
+                } else {
+                    fail?.invoke(result.msg)
+                }
             } catch (e: Throwable) {
                 e.message?.let { fail?.invoke(it) }
             }
@@ -263,11 +292,16 @@ object BaseApiImpl {
      * @param success 成功回调
      * @param fail 失败回调
      */
-    fun getAlbumSongs(vendor: String, id: String, success: (result: ArtistSongsData) -> Unit, fail: ((String) -> Unit)? = null) {
+    fun getPlaylistDetail(vendor: String, id: String, success: (result: ArtistSongs) -> Unit, fail: ((String) -> Unit)? = null) {
         mWebView?.callHandler("api.getPlaylistDetail", arrayOf<Any>(vendor, id)) { retValue: JSONObject ->
             try {
-                val result = gson.fromJson<ArtistSongsData>(retValue.toString(), ArtistSongsData::class.java)
-                success.invoke(result)
+                val listType = object : TypeToken<BaseApiBean<ArtistSongs>>() {}.type
+                val result = gson.fromJson<BaseApiBean<ArtistSongs>>(retValue.toString(), listType)
+                if (result.status) {
+                    success.invoke(result.data)
+                } else {
+                    fail?.invoke(result.msg)
+                }
             } catch (e: Throwable) {
                 e.message?.let { fail?.invoke(it) }
             }
@@ -329,4 +363,42 @@ object BaseApiImpl {
             }
         }
     }
+
+    /**
+     * 获取网易云排行榜
+     */
+    fun getAllNeteaseTopList(success: (result: List<TopListBean>) -> Unit, fail: ((String) -> Unit)? = null) {
+        mWebView?.callHandler("api.netease.getAllTopList") { retValue: JSONObject ->
+            try {
+                Log.e("BaseApiImpl", "getAllTopList $retValue")
+                val listType = object : TypeToken<BaseApiBean<List<TopListBean>>>() {}.type
+                val result = gson.fromJson<BaseApiBean<List<TopListBean>>>(retValue.toString(), listType)
+                if (result.status) {
+                    success.invoke(result.data)
+                } else {
+                    fail?.invoke(result.msg)
+                }
+            } catch (e: Throwable) {
+                e.message?.let { fail?.invoke(it) }
+            }
+        }
+    }
+
+    fun getAllQQTopList(success: (result: List<TopListBean>) -> Unit, fail: ((String) -> Unit)? = null) {
+        mWebView?.callHandler("api.qq.getAllTopList") { retValue: JSONObject ->
+            try {
+                Log.e("BaseApiImpl", "getAllTopList $retValue")
+                val listType = object : TypeToken<BaseApiBean<List<TopListBean>>>() {}.type
+                val result = gson.fromJson<BaseApiBean<List<TopListBean>>>(retValue.toString(), listType)
+                if (result.status) {
+                    success.invoke(result.data)
+                } else {
+                    fail?.invoke(result.msg)
+                }
+            } catch (e: Throwable) {
+                e.message?.let { fail?.invoke(it) }
+            }
+        }
+    }
+
 }

@@ -29,7 +29,7 @@ data class MusicInfo(@SerializedName("id")
                      @SerializedName("artists")
                      val artists: List<ArtistsItem>?,
                      @SerializedName("album")
-                     val album: Album,
+                     val album: Album?,
                      @SerializedName("vendor")
                      var vendor: String? = "",
                      @SerializedName("dl")
