@@ -32,7 +32,7 @@ object BaseApiImpl {
             mWebView?.addJavascriptObject(object : Any() {
 
                 /**
-                 * Note: This method is for Fly.js
+                 * Note: This method is for Fly.jsgetArtistSongs
                  * In browser, Ajax requests are sent by browser, but Fly can
                  * redirect requests to native, more about Fly see  https://github.com/wendux/fly
                  * @param requestData passed by fly.js, more detail reference https://wendux.github.io/dist/#/doc/flyio-en/native
@@ -164,13 +164,14 @@ object BaseApiImpl {
                     fail?.invoke(result.msg)
                 }
             } catch (e: Throwable) {
+                fail?.invoke("暂无数据，解析异常或数据")
                 Log.e("getTopList", e.message)
             }
         }
     }
 
     /**
-     * 获取QQ排行榜列表
+     * 获取QQ排行榜详情
      */
     fun getQQTopList(id: String, success: (result: TopListBean) -> Unit, fail: ((String) -> Unit)?) {
         mWebView?.callHandler("api.qq.getTopList", arrayOf<Any>(id)) { retValue: JSONObject ->
@@ -183,7 +184,7 @@ object BaseApiImpl {
                     fail?.invoke(result.msg)
                 }
             } catch (e: Throwable) {
-                fail?.invoke("数据异常")
+                fail?.invoke("暂无数据，解析异常或数据")
                 Log.e("getTopList", e.message)
             }
         }
@@ -286,7 +287,7 @@ object BaseApiImpl {
     }
 
     /**
-     * 获取专辑歌曲列表
+     * 获取歌单歌曲列表
      * @param vendor 歌曲类型 [qq,xiami,netease]
      * @param id 专辑ID
      * @param success 成功回调
@@ -384,6 +385,9 @@ object BaseApiImpl {
         }
     }
 
+    /**
+     * 获取QQ音乐排行榜
+     */
     fun getAllQQTopList(success: (result: List<TopListBean>) -> Unit, fail: ((String) -> Unit)? = null) {
         mWebView?.callHandler("api.qq.getAllTopList") { retValue: JSONObject ->
             try {
