@@ -166,7 +166,7 @@ data class PlaylistsItem(
         @SerializedName("highQuality")
         val highQuality: Boolean,
         @SerializedName("id")
-        val id: Long,
+        val id: String,
         @SerializedName("name")
         val name: String,
         @SerializedName("newImported")
@@ -206,7 +206,7 @@ data class PlaylistsItem(
         @SerializedName("updateFrequency")
         val updateFrequency: String?,
         @SerializedName("userId")
-        val userId: Int,
+        val userId: String,
         @SerializedName("ToplistType")
         val ToplistType: String?
 )
