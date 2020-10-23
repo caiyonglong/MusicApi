@@ -46,7 +46,7 @@ data class Creator(@SerializedName("birthday")
                    @SerializedName("followed")
                    val followed: Boolean = false,
                    @SerializedName("userId")
-                   val userId: Int = 0,
+                   val userId: String="",
                    @SerializedName("mutual")
                    val mutual: Boolean = false,
                    @SerializedName("avatarImgId_str")
@@ -57,65 +57,6 @@ data class Creator(@SerializedName("birthday")
                    val userType: Int = 0,
                    @SerializedName("backgroundImgId")
                    val backgroundImgId: Long = 0)
-
-
-data class SubscribersItem(@SerializedName("birthday")
-                           val birthday: Long = 0,
-                           @SerializedName("detailDescription")
-                           val detailDescription: String = "",
-                           @SerializedName("backgroundUrl")
-                           val backgroundUrl: String = "",
-                           @SerializedName("gender")
-                           val gender: Int = 0,
-                           @SerializedName("city")
-                           val city: Int = 0,
-                           @SerializedName("signature")
-                           val signature: String = "",
-                           @SerializedName("description")
-                           val description: String = "",
-                           @SerializedName("remarkName")
-                           val remarkName: String = "",
-                           @SerializedName("accountStatus")
-                           val accountStatus: Int = 0,
-                           @SerializedName("avatarImgId")
-                           val avatarImgId: Long = 0,
-                           @SerializedName("defaultAvatar")
-                           val defaultAvatar: Boolean = false,
-                           @SerializedName("backgroundImgIdStr")
-                           val backgroundImgIdStr: String = "",
-                           @SerializedName("avatarImgIdStr")
-                           val avatarImgIdSt: String = "",
-                           @SerializedName("province")
-                           val province: Int = 0,
-                           @SerializedName("nickname")
-                           val nickname: String = "",
-                           @SerializedName("expertTags")
-                           val expertTags: Any? = null,
-                           @SerializedName("djStatus")
-                           val djStatus: Int = 0,
-                           @SerializedName("avatarUrl")
-                           val avatarUrl: String = "",
-                           @SerializedName("authStatus")
-                           val authStatus: Int = 0,
-                           @SerializedName("vipType")
-                           val vipType: Int = 0,
-                           @SerializedName("followed")
-                           val followed: Boolean = false,
-                           @SerializedName("userId")
-                           val userId: Int = 0,
-                           @SerializedName("mutual")
-                           val mutual: Boolean = false,
-                           @SerializedName("avatarImgId_str")
-                           val avatarImgIdStr: String = "",
-                           @SerializedName("authority")
-                           val authority: Int = 0,
-                           @SerializedName("userType")
-                           val userType: Int = 0,
-                           @SerializedName("backgroundImgId")
-                           val backgroundImgId: Long = 0,
-                           @SerializedName("experts")
-                           val experts: Any? = null)
-
 
 data class NeteasePlaylist(@SerializedName("lasttime")
                            val lasttime: Long = 0,
@@ -129,11 +70,6 @@ data class NeteasePlaylist(@SerializedName("lasttime")
                            val playlists: MutableList<PlaylistsItem>?,
                            @SerializedName("playlist")
                            val playlist: MutableList<PlaylistsItem>?)
-
-data class TopListDetail(@SerializedName("code")
-                         val code: Int = 0,
-                         @SerializedName("list")
-                         val list: MutableList<PlaylistsItem>?)
 
 
 data class NeteasePlaylistDetail(
