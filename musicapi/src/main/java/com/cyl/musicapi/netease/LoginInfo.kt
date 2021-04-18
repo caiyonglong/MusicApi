@@ -26,7 +26,7 @@ data class Account(@SerializedName("salt")
                    @SerializedName("baoyueVersion")
                    val baoyueVersion: Int = 0,
                    @SerializedName("viptypeVersion")
-                   val viptypeVersion: Int = 0,
+                   val viptypeVersion: Long = 0,
                    @SerializedName("donateVersion")
                    val donateVersion: Int = 0,
                    @SerializedName("status")
