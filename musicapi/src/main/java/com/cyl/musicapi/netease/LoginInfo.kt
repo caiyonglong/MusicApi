@@ -20,13 +20,13 @@ data class Account(@SerializedName("salt")
                    @SerializedName("tokenVersion")
                    val tokenVersion: Int = 0,
                    @SerializedName("id")
-                   val id: Int = 0,
+                   val id: Long = 0,
                    @SerializedName("whitelistAuthority")
                    val whitelistAuthority: Int = 0,
                    @SerializedName("baoyueVersion")
                    val baoyueVersion: Int = 0,
                    @SerializedName("viptypeVersion")
-                   val viptypeVersion: Int = 0,
+                   val viptypeVersion: Long = 0,
                    @SerializedName("donateVersion")
                    val donateVersion: Int = 0,
                    @SerializedName("status")
@@ -64,7 +64,7 @@ data class BindingsItem(@SerializedName("expiresIn")
                         @SerializedName("type")
                         val type: Int = 0,
                         @SerializedName("userId")
-                        val userId: Int = 0,
+                        val userId: Long = 0,
                         @SerializedName("url")
                         val url: String = "")
 
@@ -110,7 +110,7 @@ data class Profile(@SerializedName("detailDescription")
                    @SerializedName("followed")
                    val followed: Boolean = false,
                    @SerializedName("userId")
-                   val userId: Int = 0,
+                   val userId: Long = 0,
                    @SerializedName("mutual")
                    val mutual: Boolean = false,
                    @SerializedName("authority")
