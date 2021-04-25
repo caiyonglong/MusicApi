@@ -48,7 +48,7 @@ object BaseApiImpl {
             }, null)
             mWebView?.loadUrl("file:///android_asset/musicApi.html")
         } catch (e: Throwable) {
-            Log.e("BaseApiImpl", e.message)
+            Log.e("BaseApiImpl", e.message.toString())
         }
     }
 
@@ -73,7 +73,7 @@ object BaseApiImpl {
                 val result = gson.fromJson<SearchData>(retValue.toString(), SearchData::class.java)
                 success.invoke(result)
             } catch (e: Throwable) {
-                Log.e("BaseApiImpl", e.message)
+                Log.e("BaseApiImpl", e.message.toString())
                 e.printStackTrace()
                 fail?.invoke(e.message)
             }
@@ -165,7 +165,7 @@ object BaseApiImpl {
                 }
             } catch (e: Throwable) {
                 fail?.invoke("暂无数据，解析异常或数据")
-                Log.e("getTopList", e.message)
+                Log.e("BaseApiImpl", e.message.toString())
             }
         }
     }
@@ -185,7 +185,7 @@ object BaseApiImpl {
                 }
             } catch (e: Throwable) {
                 fail?.invoke("暂无数据，解析异常或数据")
-                Log.e("getTopList", e.message)
+                Log.e("BaseApiImpl", e.message.toString())
             }
         }
     }
@@ -202,7 +202,7 @@ object BaseApiImpl {
                 val result = gson.fromJson<LyricData>(retValue.toString(), LyricData::class.java)
                 success.invoke(result)
             } catch (e: Throwable) {
-                Log.e("getTopList", e.message)
+                Log.e("BaseApiImpl", e.message.toString())
             }
         }
     }
