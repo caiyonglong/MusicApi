@@ -2,19 +2,21 @@
 
 [![](https://jitpack.io/v/caiyonglong/musicapi.svg)](https://jitpack.io/#caiyonglong/musicapi)
 
+## 主要功能点
+
 - 封装网易云、百度音乐、虾米音乐、QQ音乐Api
 - 通过[DSBridge for Android](https://github.com/wendux/DSBridge-Android) 解决Android跨域问题，Android端解析调用[js音乐API](https://github.com/sunzongzheng/musicApi)的api
 - 增加NeteaseMusicApi接口
-- 具体的接口实现请看[MusicLake](https://github.com/caiyonglong/MusicLake)
-
+- 具体的接口实现请看主项目 [MusicLake](https://github.com/caiyonglong/MusicLake)
 
 ## DSbridge使用
 通过BaseApiImpl，调用js方法拼接api请求地址，然后AjaxHandler收到请求地址，再通过okhhtp请求，获取返回数据，然后在回到js组装返回数据。最后返回一个json字符串，在BaseApiImpl 回调方法中gson解析成具体对象。
 
 
-
 ## 更新记录
 
+- 1.1.4
+ - 更新字段类型长整型，导致歌单列表数据解析异常问题。
 - 1.1.2
   - 新增getAllNeteaseTopList、getAllQQTopList、getQQTopList、getTopList接口
 -  1.1.1
@@ -36,11 +38,12 @@ allprojects {
 Step 2. Add the dependency
 
 ​```gradle
-dependencies {
-	   implementation 'com.github.caiyonglong:musicapi:1.1.2'
-}
-  ```
 
+dependencies {
+	   implementation 'com.github.caiyonglong:musicapi:1.1.4'
+}
+
+```
 
 
 ## 提示
